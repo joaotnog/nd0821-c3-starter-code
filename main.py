@@ -1,18 +1,18 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from sklearn.model_selection import train_test_split
-from starter.starter.ml.data import process_data
-from starter.starter.ml.model import *
+from starter.ml.data import process_data
+from starter.ml.model import *
 import pandas as pd
 import joblib
 import os
 
-# if "DYNO" in os.environ and os.path.isdir(".dvc"):
-#     os.system("dvc config core.no_scm true")
-#     os.system("dvc remote add -d s3-bucket s3://udacityproj3/data")
-#     if os.system("dvc pull") != 0:
-#         exit("dvc pull failed")
-#     os.system("rm -r .dvc .apt/usr/lib/dvc")
+if "DYNO" in os.environ and os.path.isdir(".dvc"):
+    os.system("dvc config core.no_scm true")
+    os.system("dvc remote add -d s3-bucket s3://udacityproj3/data")
+    if os.system("dvc pull") != 0:
+        exit("dvc pull failed")
+    os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 # Instantiate the app.
 app = FastAPI()
