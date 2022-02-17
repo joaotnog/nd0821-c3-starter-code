@@ -3,4 +3,3 @@
     hardlink_lock = true
 ['remote "myremote"']
     url = s3://udacityproj3/data
-    credentialpath = ../~/.aws/credentials
