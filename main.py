@@ -16,12 +16,11 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
 # Instantiate the app.
 app = FastAPI()
 
-try:
-    model = joblib.load('model/model.pkl')
-    encoder = joblib.load('model/encoder.pkl')
-    lb = joblib.load('model/lb.pkl')
-except:
-    pass
+
+model = joblib.load('starter/model/model.pkl')
+encoder = joblib.load('starter/model/encoder.pkl')
+lb = joblib.load('starter/model/lb.pkl')
+
 
 # Define a GET on the specified endpoint.
 @app.get("/")
@@ -69,7 +68,6 @@ class Data(BaseModel):
     
 @app.post("/")
 async def run_inference(body: Data):   
-    return {"prediction": 123}
     data_to_predict_dict = body.dict(by_alias=True)
     data_to_predict = pd.DataFrame(data_to_predict_dict, index=[0])
     cat_features = [
