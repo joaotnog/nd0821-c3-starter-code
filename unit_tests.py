@@ -11,7 +11,7 @@ import joblib
 
 class Base():
     def __init__(self):
-        data = pd.read_csv('starter/data/census.csv')
+        data = pd.read_csv('starter/data_mod/census_mod.csv')
         cat_features = [
             "workclass",
             "education",

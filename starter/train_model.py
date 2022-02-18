@@ -7,7 +7,7 @@ import pandas as pd
 import joblib
 
 # Add the necessary imports for the starter code.
-data = pd.read_csv('starter/data/census.csv')
+data = pd.read_csv('starter/data_mod/census_mod.csv')
 
 # Add code to load in the data.
 
