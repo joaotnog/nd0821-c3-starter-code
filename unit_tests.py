@@ -1,17 +1,17 @@
 import pandas as pd
 import numpy as np
 from sklearn.utils.validation import check_is_fitted
-from starter.ml.data import process_data
-from starter.ml.model import *
+from starter.starter.ml.data import process_data
+from starter.starter.ml.model import *
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-from api import *
+from main import *
 import joblib
 
 
 class Base():
     def __init__(self):
-        data = pd.read_csv('data/census.csv')
+        data = pd.read_csv('starter/data/census.csv')
         cat_features = [
             "workclass",
             "education",
@@ -25,7 +25,7 @@ class Base():
         X, y, encoder, lb = process_data(
             data, categorical_features=cat_features, label="salary", training=True
         )
-        model = joblib.load("model/model.pkl")
+        model = joblib.load("starter/model/model.pkl")
         self.X = X
         self.y = y
         self.model = model
@@ -43,7 +43,7 @@ def test_inference():
 
 def test_metrics():
     preds = inference(base.model, base.X)
-    precision, recall, fbeta = compute_model_metrics(y, preds)
+    precision, recall, fbeta = compute_model_metrics(base.y, preds)
     assert all([(x >=0) & (x <= 1) for x in [precision, recall, fbeta]]), "Metricss failed"    
 
 def test_get():
