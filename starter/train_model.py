@@ -7,7 +7,7 @@ import pandas as pd
 import joblib
 
 # Add the necessary imports for the starter code.
-data = pd.read_csv('data/census.csv')
+data = pd.read_csv('starter/data/census.csv')
 
 # Add code to load in the data.
 
@@ -35,6 +35,6 @@ X_test, y_test, encoder, lb = process_data(
 
 # Train and save a model.
 model = train_model(X_train, y_train)
-joblib.dump(model, 'model/model.pkl')
-joblib.dump(encoder, 'model/encoder.pkl')
-joblib.dump(lb, 'model/lb.pkl')
+joblib.dump(model, 'starter/model/model.pkl')
+joblib.dump(encoder, 'starter/model/encoder.pkl')
+joblib.dump(lb, 'starter/model/lb.pkl')
