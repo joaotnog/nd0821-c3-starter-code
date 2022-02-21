@@ -1,7 +1,8 @@
 import pandas as pd
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
-from .data import process_data
+from data import process_data
+import joblib
 
 
 # Optional: implement hyperparameter tuning.
@@ -80,7 +81,7 @@ def performance_on_slices(data, encoder, lb, cat_features, model):
     result_df : pandas dataframe with performance metrics per categorical value slice
     """
     results_list = list()
-    # Proces the input data with the process_data function.
+    # Proces the input data with the process_data function. 
     X, y, _, _ = process_data(
         data, 
         categorical_features=cat_features,
@@ -100,4 +101,23 @@ def performance_on_slices(data, encoder, lb, cat_features, model):
             results_list.append([cat_column, cat_value, precision, recall, fbeta])
     result_df = pd.DataFrame(results_list, 
                              columns = ['cat_column', 'cat_value', 'precision', 'recall', 'fbeta'])
-    return result_df
+    result_df.to_csv('slice_output.txt')
+    return True
+
+
+if __name__ == "__main__":
+    cat_features = [
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country",
+    ]    
+    model = joblib.load('../../model/model.pkl')
+    encoder = joblib.load('../../model/encoder.pkl')
+    lb = joblib.load('../../model/lb.pkl')
+    data = pd.read_csv('../../data_mod/census_mod.csv')
+    performance_on_slices(data, encoder, lb, cat_features, model)
